@@ -14,15 +14,57 @@ img {
   display: block;
   max-width: 100%;
 }
-.preview {
-  overflow: hidden;
-  width: 250px; 
-  height: 250px;
-  margin: 10px;
-  border: 1px solid red;
-}
 .modal-lg{
   max-width: 1000px !important;
+}
+.upload-form {
+	width: 100%;
+	height: 150px;
+	background-color: #21202F;
+	border-radius: 4px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	max-width: 500px;
+	margin: auto;
+	color: #fff;
+}
+.upload-form h1 {
+	font-size: 26px;
+	margin-bottom: 18px;
+}
+.upload-form .custom-file-label {
+	height: auto;
+	border: none;
+}
+.upload-form .custom-file-label::after {
+	color: #282828;
+	background-color: #FFD600;
+}
+.preview {
+    overflow: hidden;
+    width: 250px; 
+    height: 250px;
+    margin-left: 10px;
+    border: 1px solid #FFD600;
+}
+.upload-modal .actions input {
+    border-color: #FFD600;
+}
+.upload-modal .btn-primary {
+    color: #21202F !important;
+    background-color: #FFD600 !important;
+    border-color: #FFD600 !important;
+}
+.upload-modal .btn-secondary {
+    color: #fff !important;
+    background-color: #21202F !important;
+    border-color: #21202F !important;
+}
+.upload-modal .btn,
+.upload-modal .form-control:focus {
+	box-shadow: none !important;
 }
 
 .lds-hourglass {
@@ -57,15 +99,21 @@ img {
 }
 
 </style>
-<body>
 <div class="container">
-    <h1>Image Cropper</h1>
-    <form method="post">
-    <input type="file" name="image" class="image">
-    </form>
+    <div class="upload-form">
+      <h1>Image Cropper</h1>
+      <form method="post">
+        <div class="input-group">
+          <div class="custom-file">
+            <input type="file" name="image" class="image custom-file-input">
+            <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+          </div>
+        </div>
+      </form>
+    </div>
 </div>
 
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+<div class="modal fade upload-modal" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -79,17 +127,21 @@ img {
             <div class="row">
                 <div class="col-md-8">
                     <img id="image" src="https://avatars0.githubusercontent.com/u/3456749">
+                    <div class="d-flex justify-content-center">
+                      <div class="actions input-group w-50 my-3">
+                        <input id="height" type="text" value="" class="form-control rounded mr-2" placeholder="Width">
+                        <input id="width" type="text" value="" class="form-control rounded mr-2" placeholder="Height">
+                        <div class="">
+                          <button id="resize" class="btn btn-primary">Resize</button>
+                        </div>  
+                        <button id="zoomin" class="btn btn-primary ml-2">+</button>
+                        <button id="zoomout" class="btn btn-primary ml-2">-</button>
+                      </div>
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="preview"></div>
                 </div>
-            </div>
-            <div class="actions">
-              <input id="height" type="text" value="">
-              <input id="width" type="text" value="">
-              <button id="resize" class="btn btn-primary">resize</button>
-              <button id="zoomin" class="btn btn-primary">+</button>
-              <button id="zoomout" class="btn btn-primary">-</button>
             </div>
         </div>
       </div>
