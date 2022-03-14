@@ -24,6 +24,38 @@ img {
 .modal-lg{
   max-width: 1000px !important;
 }
+
+.lds-hourglass {
+  display: inline-block;
+  position: relative;
+}
+.lds-hourglass:after {
+  content: " ";
+  display: block;
+  border-radius: 50%;
+  width: 0;
+  height: 0;
+
+  box-sizing: border-box;
+  border: 10px solid white;
+  border-color: white transparent white transparent;
+  animation: lds-hourglass 1.2s infinite;
+}
+
+@keyframes lds-hourglass {
+  0% {
+    transform: rotate(0);
+    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+  50% {
+    transform: rotate(900deg);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  100% {
+    transform: rotate(1800deg);
+  }
+}
+
 </style>
 <body>
 <div class="container">
@@ -126,6 +158,15 @@ $modal.on('shown.bs.modal', function () {
       });
     });
 
+    // zoom in
+    $("#zoomin").click(function(){
+      cropper.zoom(0.1);
+    });
+    // zoom out
+    $("#zoomout").click(function(){
+      cropper.zoom(-0.1);
+    });
+
 }).on('hidden.bs.modal', function () {
    cropper.destroy();
    cropper = null;
@@ -136,7 +177,12 @@ $modal.on('shown.bs.modal', function () {
 
 
 $("#crop").click(function(){
+
     canvas = cropper.getCroppedCanvas();
+
+    // add loader to crop
+    $(this).text('')
+    $(this).addClass('lds-hourglass');
 
     canvas.toBlob(function(blob) {
         url = URL.createObjectURL(blob);
@@ -153,7 +199,9 @@ $("#crop").click(function(){
                 success: function(data){
                     console.log(data);
                     $modal.modal('hide');
-                    alert("success upload image");
+                    $("#crop").removeClass('lds-hourglass');
+                    $("#crop").text('Crop');
+                    alert(data);
                 }
               });
          }
