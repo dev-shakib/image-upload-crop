@@ -135,7 +135,7 @@ img {
                           <button id="resize" class="btn btn-primary">Resize</button>
                         </div>  
                         <button id="zoomin" class="btn btn-primary ml-2">+</button>
-                        <button id="zoomout" class="btn btn-primary ml-2">-</button>
+                        <button id="zoomout" class="btn btn-primary ml-2  ">-</button>
                       </div>
                     </div>
                 </div>
@@ -191,7 +191,7 @@ $("body").on("change", ".image", function(e){
 $modal.on('shown.bs.modal', function () {
     cropper = new Cropper(image, {
     aspectRatio: 0,
-    viewMode: 5,
+    viewMode: 2,
     preview: '.preview',
     data: {
       height: 300,
